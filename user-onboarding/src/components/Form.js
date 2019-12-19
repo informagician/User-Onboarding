@@ -19,44 +19,56 @@ const BoardingForm = ({ values, errors, touched, status }) => {
           ]);
       }, [status]);
     return (
-        <Form>
-            <label htmlFor="name">Name:
-                <Field type="name" id="name" name="name" placeholder="Name" />
-                {   
-                    touched.name &&
-                    errors.name && (
-                        <p>{errors.name}</p>
-                    )
-                }
-            </label>
+        <div>
+            <Form>
+                <label htmlFor="name">Name:
+                    <Field type="name" id="name" name="name" placeholder="Name" />
+                    {   
+                        touched.name &&
+                        errors.name && (
+                            <p>{errors.name}</p>
+                        )
+                    }
+                </label>
 
-            <label htmlFor="email">Email:
-                <Field type="email" id="email" name="email" placeholder="Email" />
-                {   
-                    touched.email &&
-                    errors.email && (
-                        <p>{errors.email}</p>
-                    )
-                }
-            </label>
+                <label htmlFor="email">Email:
+                    <Field type="email" id="email" name="email" placeholder="Email" />
+                    {   
+                        touched.email &&
+                        errors.email && (
+                            <p>{errors.email}</p>
+                        )
+                    }
+                </label>
 
-            <label htmlFor="email">Password:
-                <Field type="password" id="password" name="password" placeholder="Password" />
-                {   
-                    touched.password &&
-                    errors.password && (
-                        <p>{errors.password}</p>
-                    )
-                }
-            </label>
+                <label htmlFor="email">Password:
+                    <Field type="password" id="password" name="password" placeholder="Password" />
+                    {   
+                        touched.password &&
+                        errors.password && (
+                            <p>{errors.password}</p>
+                        )
+                    }
+                </label>
+                
+                <label htmlFor="tos" className="tos">
+                    <Field type="checkbox" name="tos" className="tos" checked={values.tos}/>
+                    Terms of Service
+                </label>
             
-            <label htmlFor="tos" className="tos">
-                <Field type="checkbox" name="tos" className="tos" checked={values.tos}/>
-                Terms of Service
-            </label>
-        
-            <button type="submit">Submit</button>
-        </Form>
+                <button type="submit">Submit</button>
+            </Form>
+            {
+                user.map(item => {
+                    return(
+                        <div key={item.id}>
+                            <h1>{item.name}</h1>
+                            <p>{item.email}</p>
+                        </div>
+                    )
+                })
+            }
+        </div>
     );
 }
 
