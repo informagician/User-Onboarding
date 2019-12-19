@@ -1,33 +1,33 @@
 import React from 'react';
-import { withFormik } from 'formik';
+import { withFormik,Form,Field } from 'formik';
 
-const Form = () => {
+const BoardingForm = () => {
     return (
-        <form>
+        <Form>
             <label htmlFor="name">Name:
-                <input type="name" name="name" placeholder="Name" />
+                <Field type="name" id="name" name="name" placeholder="Name" />
             </label>
 
             <label htmlFor="email">Email:
-                <input type="email" name="email" placeholder="Email" />
+                <Field type="email" id="email" name="email" placeholder="Email" />
             </label>
 
             <label htmlFor="email">Password:
-                <input type="password" name="password" placeholder="Password" />
+                <Field type="password" id="password" name="password" placeholder="Password" />
             </label>
-
-            <label htmlFor="tos">
-                <input type="checkbox" name="tos" />
+            
+            <label htmlFor="tos" className="tos">
+                <Field type="checkbox" name="tos" className="tos"/>
                 Terms of Service
             </label>
-
-            <input type="button" value="Submit" />
-        </form>
+        
+            <button type="submit">Submit</button>
+        </Form>
     );
 }
 
 const FormikForm = withFormik({
 
-})(Form)
+})(BoardingForm)
 
 export default FormikForm;
