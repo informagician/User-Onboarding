@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withFormik,Form,Field } from 'formik';
 import * as Yup from "yup";
+import axios from "axios";
 
-const BoardingForm = ({ values, errors, touched }) => {
+const BoardingForm = ({ values, errors, touched, status }) => {
+
+    const [ user, setUser ] = useState([]);
+
+    useEffect(() => {
+        console.log(
+          "status has changed!",
+          status
+        );
+        status &&
+          setUser(user => [
+            ...user,
+            status
+          ]);
+      }, [status]);
     return (
         <Form>
             <label htmlFor="name">Name:
@@ -59,7 +74,25 @@ const FormikForm = withFormik({
         email: Yup.string().email().required("Email address is required"),
         password: Yup.string().required("No password provided").min(8, 'Passwod is too short - should be 8 chars minimum').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
         tos: Yup.bool().required("You must agree to Terms")
-    })
+    }),
+
+    handleSubmit(
+            values,
+            { setStatus, resetForm }
+        ) 
+        
+        {
+            axios
+              .post("https://reqres.in/api/users/",values)
+              .then(res => {
+                console.log("success", res);
+                setStatus(res.data);
+                resetForm();
+              })
+              .catch(err =>
+                console.log(err.response)
+              );
+        }
 })(BoardingForm)
 
 export default FormikForm;
